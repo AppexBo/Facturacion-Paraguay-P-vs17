@@ -21,7 +21,7 @@ class ResPartner(models.Model):
             ('valid', 'VALIDO'), 
             ('invalid', 'INVALIDO')
         ],
-        default='to_chect',
+        default='to_check',
         readonly=True 
     )
     
