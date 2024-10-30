@@ -6,7 +6,7 @@
     "author": "Hinojosa Flores Luis Fernando",
     "website": "https://github.com/LuisFlores2170",
     'category': 'Sales/CRM',
-    'depends': ['base', 'contacts'],
+    'depends': ['base', 'contacts', 'base_address_extended'],
 	"data":[
         "data/res_country_state.xml",
         "data/res_city.xml",
