@@ -24,6 +24,15 @@ class ResPartner(models.Model):
         default='to_check',
         readonly=True 
     )
+
+    
+    is_ruc = fields.Boolean(
+        string='¿Es RUC?',
+        related='l10n_latam_identification_type_id.is_vat',
+        readonly=True,
+        store=True
+    )
+    
     
     
     @api.onchange('vat')
@@ -31,7 +40,7 @@ class ResPartner(models.Model):
     def _check_vat_py(self):
         for record in self:
             ruc_state = 'to_check'
-            if record.vat:
+            if record.vat and record.is_ruc:
                 ruc_state = 'valid' if record.check_vat_py(record.vat) else 'invalid'
             record.write({'ruc_state' : ruc_state})
     
