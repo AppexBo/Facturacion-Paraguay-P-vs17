@@ -10,6 +10,8 @@
                 <xpath expr="//field[@name='ubl_cii_format']" position="before">
                     
                     <field name="receiver_nature" />
+                    <field name="operation_type_id" />
+                    <field name="taxpayer_type" invisible="receiver_nature != '1'"  required="receiver_nature == '1'"/>
                     
                 </xpath>
 

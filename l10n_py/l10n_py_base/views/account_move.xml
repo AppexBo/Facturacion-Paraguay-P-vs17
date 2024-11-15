@@ -11,6 +11,41 @@
                 <xpath expr="//field[@name='partner_shipping_id']" position="before">
                     <field name="l10n_py_payment_type_id"/>
                 </xpath>
+
+                <xpath expr="//notebook" position="inside">
+                    <page name="page_edi" string="Factura (PY)" invisible="move_type != 'out_invoice'" readonly="state != 'draft'" >                            
+                        <group string="Datos adicionales" >
+                            <group>
+                                <field name="l10n_py_presence_indicator_id"/>
+                            </group>
+
+                            <group string="Respuesta">
+                                <field name="l10n_py_response" invisible="1" />
+                                <field name="l10n_py_response_Success"/>
+                                <field name="l10n_py_response_GlobalDocumentId"/>
+                                <field name="l10n_py_response_CountryDocumentId"/>
+                                <field name="l10n_py_response_Messages"/>
+                                <field name="l10n_py_response_ResponseValue"/>
+                                <field name="l10n_py_response_Code"/>
+                                <field name="l10n_py_response_Description"/>
+                                <field name="l10n_py_response_ErrorException"/>
+                                <field name="l10n_py_response_extra_info"/>
+                                
+                                <field name="l10n_py_transaction"/>
+                                
+                                
+                            </group>
+
+                            <group string="PY DATA">
+                                <field name="xml_str_format" invisible="1"/>
+                                <field name="py_file_content" invisible="1" />
+                                <field name="format_base64_xml"  invisible="1"/>
+                            </group>
+
+                            
+                        </group>
+                    </page>
+                </xpath>
             </field>
         </record>
     </data>

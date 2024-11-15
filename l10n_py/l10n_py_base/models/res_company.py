@@ -75,7 +75,11 @@ class ResCompany(models.Model):
     
     
     
-
+    
+    py_mapping = fields.Char(
+        string='Mapping',
+    )
+    
     
     
     
@@ -83,5 +87,13 @@ class ResCompany(models.Model):
     
     def _localization_use_documents(self):
         self.ensure_one()
-        return self.enable_py_invoice
+        return True
+    
+    # ENDPOINTS
+
+    
+    endpoint_ids = fields.Many2many(
+        string='Servicios HERMES',
+        comodel_name='l10n.py.endpoint'
+    )
     

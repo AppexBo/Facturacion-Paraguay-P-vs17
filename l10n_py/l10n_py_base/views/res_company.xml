@@ -30,6 +30,8 @@
                                 <field name="sync_point"/>
                                 <field name="api_key"/>
                                 <field name="vat" string="RUC"/>
+                                <field name="py_mapping"/>
+                                
                             </group>
 
                             <group string="ENTORNO">
@@ -39,17 +41,17 @@
 
                         
                         <field name="ringing_ids">
-                        
-                            
                             <tree string="Lineas de timbrado" editable="bottom">
-                                <field name="name"/>
-                                <field name="active"/>
+                                <field name="name" required="1"/>
+                                <field name="date_init" required="1" />
+                                <field name="use"/>
                             </tree>
                             
                         </field>
+
                         
-                                
-                        
+                        <separator string="ENDPOINTS" colspan="4" />
+                        <field name="endpoint_ids" />
                         
                     </page>
                 </xpath>

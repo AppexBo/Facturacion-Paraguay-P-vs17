@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 from odoo import api, models, fields
+from odoo.exceptions import UserError
 
 class ResCurrency(models.Model):
     _inherit = ['res.currency']
@@ -11,4 +12,5 @@ class ResCurrency(models.Model):
         comodel_name='l10n.py.currency',
         company_dependent=True
     )
+    
     

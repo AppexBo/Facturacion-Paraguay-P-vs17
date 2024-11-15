@@ -13,7 +13,8 @@
         'uom',
         'account',
         'l10n_latam_invoice_document',
-        'l10n_latam_base'
+        'l10n_latam_base',
+        'base_address_extended'
     ],
 	"data":[
         'security/ir.model.access.csv',

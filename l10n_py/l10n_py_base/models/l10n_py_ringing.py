@@ -8,8 +8,14 @@ class L10nPyRinging(models.Model):
 
     
     name = fields.Char(
-        string='Numero',
+        string='Codigo',
     )
+
+    
+    date_init = fields.Date(
+        string='Fecha inicio'
+    )
+    
     
     
     company_id = fields.Many2one(
@@ -18,7 +24,7 @@ class L10nPyRinging(models.Model):
         required=True, 
     )
     
-    active = fields.Boolean(
+    use = fields.Boolean(
         string='Activo',
         default=True
     )

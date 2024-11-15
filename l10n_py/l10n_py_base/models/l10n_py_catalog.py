@@ -72,7 +72,7 @@ class L10nPyCountry(models.Model):
     information = fields.Text(
         string='Informacion',
     )
-    
+
 #--------------------------------------------------------------------------------------------------------------------------------
 # Departamentos
 #--------------------------------------------------------------------------------------------------------------------------------
@@ -402,3 +402,56 @@ class L10nPyEconomicActivity(models.Model):
     
     def get_econonic_activity_id_info(self):
         return self.code, self.description
+    
+
+
+#--------------------------------------------------------------------------------------------------------------------------------
+# Servicios HERMES
+#--------------------------------------------------------------------------------------------------------------------------------
+
+class L10nPyEndpoint(models.Model):
+    _name = 'l10n.py.endpoint'
+    _description = 'Servicios HERMES'
+
+    name = fields.Char(
+        string='Descripción'
+    )
+
+    
+    operation_type = fields.Selection(
+        string='Tipo operación',
+        selection=[
+            ('send', 'Envio'), 
+            ('request', 'Solicitud')
+        ]
+    )
+    
+
+    url = fields.Char(
+        string='URL',
+        required=True
+    )
+    
+    
+    method = fields.Selection(
+        [
+            ('GET', 'GET'),
+            ('POST', 'POST'),
+            ('PUT', 'PUT'),
+            ('DELETE', 'DELETE')
+        ], 
+        string="Método HTTP", 
+        required=True
+    )
+
+    
+    company_id = fields.Many2one(
+        string='Compañia', 
+        comodel_name='res.company', 
+    )
+
+    
+    description = fields.Text(
+        string='Descripción',
+    )
+    

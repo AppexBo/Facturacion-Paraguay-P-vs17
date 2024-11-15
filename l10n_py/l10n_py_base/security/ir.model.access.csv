@@ -13,3 +13,4 @@ access_l10n_py_transaction_type,access_l10n_py_transaction_type,model_l10n_py_tr
 access_l10n_py_presence_indicator,access_l10n_py_presence_indicator,model_l10n_py_presence_indicator,,1,0,0,0
 access_l10n_py_ringing,access_l10n_py_ringing,model_l10n_py_ringing,,1,1,1,1
 access_l10n_py_economic_activity,access_l10n_py_economic_activity,model_l10n_py_economic_activity,,1,1,1,1
+access_l10n_py_endpoint,access_l10n_py_endpoint,model_l10n_py_endpoint,,1,1,1,1
