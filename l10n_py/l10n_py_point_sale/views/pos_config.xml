@@ -11,9 +11,31 @@
                         <setting string="Ajustes (PY)" help="Punto de venta fiscal">
                                 <div class="content-group pos_iot_config">
                                     <div class="row iot_barcode_scanner">
-                                        <label string="Indicador de presencia" for="l10n_py_presence_indicator_id" class="col-lg-4 o_light_label"/>
+                                        <label string="Tipo de identificacion (clientes)" for="identification_type_id" class="col-lg-4 o_light_label"/>
+                                        <field name="identification_type_id"/>
+                                    </div>
+                                    <div class="row iot_barcode_scanner">
+                                        <label string="Naturaleza receptor (clientes)" for="receiver_nature" class="col-lg-4 o_light_label"/>
+                                        <field name="receiver_nature"/>
+                                    </div>
+                                    <div class="row iot_barcode_scanner">
+                                        <label string="Tipo contribuyente (clientes)" for="taxpayer_type" class="col-lg-4 o_light_label"/>
+                                        <field name="taxpayer_type"/>
+                                    </div>
+                                    <div class="row iot_barcode_scanner">
+                                        <label string="Tipo de operacion (clientes)" for="operation_type_id" class="col-lg-4 o_light_label"/>
+                                        <field name="operation_type_id"/>
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div class="row iot_barcode_scanner">
+                                        <label string="Indicador de presencia (factura)" for="l10n_py_presence_indicator_id" class="col-lg-4 o_light_label"/>
                                         <field name="l10n_py_presence_indicator_id"/>
                                     </div>
+                                    
+                                    
+                                    
                                 </div>
                         </setting>
                 </xpath>

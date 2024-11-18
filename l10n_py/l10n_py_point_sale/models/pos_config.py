@@ -13,6 +13,37 @@ class PosConfig(models.Model):
         comodel_name='l10n.py.presence.indicator',
         required=True
     )
+
+    operation_type_id = fields.Many2one(
+        string='Tipo operacion',
+        comodel_name='l10n.py.operation.type',
+    )
+
+    
+    identification_type_id = fields.Many2one(
+        string='Tipo de identificacion',
+        comodel_name='l10n_latam.identification.type',
+    )
+    
+    
+    
+    receiver_nature = fields.Selection(
+        string='Naturaleza del receptor',
+        selection=[
+            ('1', '(1) Contribuyente'), 
+            ('2', '(2) No contribuyente')
+        ],
+    )
+    
+    
+    taxpayer_type = fields.Selection(
+        string='Tipo de contribuyente',
+        selection=[
+            ('1', 'Persona Física'), 
+            ('2', 'Persona Jurídica')
+        ]
+    )
+
     
     def open_ui(self):
         self.validate_payment_method()

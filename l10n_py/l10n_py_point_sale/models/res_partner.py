@@ -9,6 +9,7 @@ class ResPartner(models.Model):
     
     
     def write(self, values : dict):
+        #raise UserError(f"{values}")
         if values.get('receiver_nature', False):
             values['receiver_nature'] = str(values['receiver_nature'])
 

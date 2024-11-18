@@ -1,6 +1,5 @@
 from odoo import api, fields, models
-
-
+from odoo.exceptions import UserError
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -77,3 +76,37 @@ class PosSession(models.Model):
 
     # def _get_pos_ui_pos_payment(self, params):
     #     return self.env['pos.payment'].search_read(**params['search_params'])
+    
+    def load_pos_data(self):
+        res = super(PosSession, self).load_pos_data()
+        res['operation_type_id'] = self.getDefaultOperationType()
+        res['identification_type_id'] = self.getDefaultIdentificationType()
+        
+        res['receiver_nature'] = self.getDefaultReceiverNature()
+        res['taxpayer_type'] = self.getDefaultTaxpayerType()
+        
+        
+        #raise UserError(f"{res['operation_type_id']}")
+        return res
+    
+    def getDefaultOperationType(self):
+        if self.config_id.operation_type_id:
+            return self.config_id.operation_type_id.id
+        return False
+    
+    
+    def getDefaultIdentificationType(self):
+        if self.config_id.identification_type_id:
+            return self.config_id.identification_type_id.id
+        return False
+    
+    def getDefaultReceiverNature(self):
+        if self.config_id.receiver_nature:
+            return self.config_id.receiver_nature
+        return False
+    
+    def getDefaultTaxpayerType(self):
+        if self.config_id.taxpayer_type:
+                return self.config_id.taxpayer_type
+        return False
+        

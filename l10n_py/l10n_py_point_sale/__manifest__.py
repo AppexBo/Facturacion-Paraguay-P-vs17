@@ -21,6 +21,7 @@
         'point_of_sale._assets_pos': [
             'l10n_py_point_sale/static/src/**/*',
         ],
+        
     },
     "installable": True,
     'license': 'LGPL-3',
