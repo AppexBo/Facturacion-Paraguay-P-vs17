@@ -36,9 +36,13 @@
 
                             <group string="ENTORNO">
                                 <field name="test_environment"/>
+                                <field name="use_auto_invoice"/>
                             </group>
                         </group>
 
+                        
+                        <separator string="Codigos de timbrado" colspan="4" />
+                            
                         
                         <field name="ringing_ids">
                             <tree string="Lineas de timbrado" editable="bottom">

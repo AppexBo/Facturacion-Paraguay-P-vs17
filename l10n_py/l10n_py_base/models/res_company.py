@@ -81,6 +81,11 @@ class ResCompany(models.Model):
     )
     
     
+    use_auto_invoice = fields.Boolean(
+        string='Usar autofactura',
+        default=True        
+    )
+    
     
     
     

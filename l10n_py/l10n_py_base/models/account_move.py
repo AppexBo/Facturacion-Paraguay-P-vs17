@@ -27,6 +27,14 @@ class AccountMove(models.Model):
         comodel_name='l10n.py.payment.type'
     )
 
+    
+    l10n_py_payments_ids = fields.One2many(
+        string='Metodos de pago (PY)',
+        comodel_name='l10n.py.payment.currency',
+        inverse_name='invoice_id',
+    )
+    
+
     l10n_py_transaction_type_id = fields.Many2one(
         string='Tipo transacccion',
         comodel_name='l10n.py.transaction.type'

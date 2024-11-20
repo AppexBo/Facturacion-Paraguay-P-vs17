@@ -46,13 +46,9 @@ class L10nPySend(models.Model):
         
     def py_document_register(self):
 
-        # Definir los valores de autenticación
-        
-        # Encabezados de la solicitud
         headers = self.get_header()
 
 
-        # URL del endpoint
         endpoint =  self.env['l10n.py.endpoint'].search(
             [
                 ('operation_type','=','send'),
@@ -61,10 +57,7 @@ class L10nPySend(models.Model):
         ) #"https://api-sandbox.hermesweb.net/api/Document/SendDocumentToAuthority"
         if endpoint:
             url = endpoint.url
-            # Ejemplo de datos de documento que deseas enviar
             data = {
-                # Los datos del documento deben ir aquí en el formato requerido por el API
-                #"document_id": "123456",
                 "mapping": self.company_id.get_py_mapping(),
                 "sign": "true",
                 "defaultCertificate": "false",
@@ -74,13 +67,12 @@ class L10nPySend(models.Model):
 
             _logger.info(f"DATA: {data}")
 
-            # Realizar la solicitud POST
             try:
                 response = requests.post(url, json=data, headers=headers)
                 _logger.info(response.status_code)
-                # Verificar si la solicitud fue exitosa
                 if response.status_code == 200:
                     response_json = response.json()
+                    _logger.info(response_json)
                     self.write({'l10n_py_response' : response_json})
                     self.process_response(response_json)
                 else:
@@ -149,3 +141,44 @@ class L10nPySend(models.Model):
 
     def action_py_request_document(self):
         pass
+
+    def get_request_pdf(self):
+        sync_point_id = '9d978e86-b8a0-43e3-b430-11acc0a6d1ae' #self.company_id.get_sync_point_id()  # SyncPointId proporcionado
+        
+        api_key = 'fusnchwsaupnwfi'#self.company_id.get_api_key()  # ApiKey proporcionado
+        #ruc = "88888888"  # RUC de la empresa
+
+        # Generar el valor de autenticación
+        auth_value = f"{sync_point_id}:{api_key}" #:{ruc}"
+
+        header = {
+            "Authorization": f"Basic {auth_value}",
+            "Content-Type": "application/json"
+        }
+
+        endpoint =  self.env['l10n.py.endpoint'].search(
+            [
+                ('name','=','Descarga PDF'),
+                ('method','=','GET')
+            ]
+        )
+        if endpoint:
+            URL = endpoint.url
+            URL += self.l10n_py_response_CountryDocumentId
+            _logger.info(self.l10n_py_response_CountryDocumentId)
+
+            try:
+                response = requests.get(URL, headers=header)
+
+                # Verificar si la solicitud fue exitosa
+                if response.status_code == 200:
+                    _logger.info('INFORMACION')
+                    res : dict = response.json()
+                    _logger.info(f"{res}")
+                    documentBase64 = res.get('Base64Content', False)
+                    return documentBase64
+                else:
+                    _logger.info(f"Error en la autenticación o consulta: {response.status_code}, {response.text}")
+            except requests.exceptions.RequestException as e:
+                _logger.info(f"Error al conectar con el servicio: {e}")
+                

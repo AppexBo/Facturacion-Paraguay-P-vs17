@@ -14,6 +14,10 @@
 	"data":[
         'data/l10n_py_endpoint.xml',
         'views/account_move.xml',
+        'report/paper_formats.xml',
+        'report/layout.xml',
+        'report/ir_actions_report.xml'
+        
         
 	],
     "installable": True,
