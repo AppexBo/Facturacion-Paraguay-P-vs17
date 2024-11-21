@@ -85,6 +85,17 @@ class ResCompany(models.Model):
         string='Usar autofactura',
         default=True        
     )
+
+    
+    to_sign = fields.Boolean(
+        string='Firmar',
+        default=True
+    )
+    
+    
+    defaultCertificate = fields.Boolean(
+        string='AutoCertificar',
+    )
     
     
     

@@ -19,10 +19,13 @@ class L10nPyPaymentCurrent(models.Model):
     currency_id = fields.Many2one(
         string='Moneda',
         comodel_name='res.currency',
-        required=True
+        required=True,
         
+        default= lambda self : self.get_default_currency_id()
     )
     
+    def get_default_currency_id(self):
+        return False
     
     amount = fields.Float(
         string='Monto pagado',

@@ -59,8 +59,8 @@ class L10nPySend(models.Model):
             url = endpoint.url
             data = {
                 "mapping": self.company_id.get_py_mapping(),
-                "sign": "true",
-                "defaultCertificate": "false",
+                "sign": "true" if self.company_id.to_sign else "false" ,
+                "defaultCertificate": "true" if self.company_id.defaultCertificate else "false",
                 "async": "true" if self.company_id.test_environment else 'false',
                 "fileContent": self.format_base64_xml
             }
@@ -79,9 +79,13 @@ class L10nPySend(models.Model):
                     _logger.info('Error en la autenticación o envío:')
                     _logger.info(response.status_code)
                     _logger.info(response.text)
+                    raise UserError(f"Error al conectar con el servicio: {response.status_code}, {response.text}")
+                    
             except requests.exceptions.RequestException as e:
                 _logger.info("Error al conectar con el servicio:")
                 _logger.info(e)
+                raise UserError(f"Error al conectar con el servicio: {e}")
+               
                 
 
 
@@ -143,9 +147,9 @@ class L10nPySend(models.Model):
         pass
 
     def get_request_pdf(self):
-        sync_point_id = '9d978e86-b8a0-43e3-b430-11acc0a6d1ae' #self.company_id.get_sync_point_id()  # SyncPointId proporcionado
+        sync_point_id = self.company_id.get_sync_point_id()  # SyncPointId proporcionado
         
-        api_key = 'fusnchwsaupnwfi'#self.company_id.get_api_key()  # ApiKey proporcionado
+        api_key = self.company_id.get_api_key()  # ApiKey proporcionado
         #ruc = "88888888"  # RUC de la empresa
 
         # Generar el valor de autenticación
@@ -178,7 +182,9 @@ class L10nPySend(models.Model):
                     documentBase64 = res.get('Base64Content', False)
                     return documentBase64
                 else:
+                    raise UserError(f"Error en la autenticación o consulta: {response.status_code}, {response.text}")
                     _logger.info(f"Error en la autenticación o consulta: {response.status_code}, {response.text}")
             except requests.exceptions.RequestException as e:
+                raise UserError(f"Error al conectar con el servicio: {e}")
                 _logger.info(f"Error al conectar con el servicio: {e}")
                 

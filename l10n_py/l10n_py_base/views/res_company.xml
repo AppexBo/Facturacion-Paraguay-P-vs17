@@ -38,6 +38,11 @@
                                 <field name="test_environment"/>
                                 <field name="use_auto_invoice"/>
                             </group>
+                            <group string="ENTORNO">
+                                <field name="to_sign"/>
+                                <field name="defaultCertificate"/>
+                            </group>
+                            
                         </group>
 
                         

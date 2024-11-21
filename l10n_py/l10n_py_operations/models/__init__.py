@@ -12,3 +12,4 @@ from . import account_move
 from . import l10n_py_send
 from . import l10n_py_catalog
 from . import account_move_send
+from . import l10n_py_payment_current

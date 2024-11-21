@@ -344,28 +344,35 @@ class AccountMove(models.Model):
         return str_format
     
     def get_group_E_7_1(self):
-        str_format = '<gPaConEIni>'
+        str_format = ''
 
-        E606 = self.get_E606()
-        str_format += f'<iTiPago>{E606}</iTiPago>'
+        for line in self.l10n_py_payments_ids:
+            
+            str_format += '<gPaConEIni>'
 
-        E607 = self.get_E607()
-        str_format += f'<dDesTiPag>{E607}</dDesTiPag>'
-        
-        E608 = self.get_E608() # Pendiente monto del tipo de pago
-        str_format += f'<dMonTiPag>{E608}</dMonTiPag>'
-        
-        E609 = self.get_E609()
-        str_format += f'<cMoneTiPag>{E609}</cMoneTiPag>'
-        
-        E610 = self.get_E610()
-        str_format += f'<dDMoneTiPag>{E610}</dDMoneTiPag>'
+            E606 = line.get_E606()
+            str_format += f'<iTiPago>{E606}</iTiPago>'
 
-        E611 = '' 
-        if E609 != 'PYG':
-            E611 = self.get_E611()
-            str_format += f'<dTiCamTiPag>{E611}</dTiCamTiPag>'
-        str_format += '</gPaConEIni>'
+            E607 = line.get_E607()
+            str_format += f'<dDesTiPag>{E607}</dDesTiPag>'
+            
+            E608 = line.get_E608()
+            str_format += f'<dMonTiPag>{E608}</dMonTiPag>'
+            
+            E609 = line.get_E609()
+            str_format += f'<cMoneTiPag>{E609}</cMoneTiPag>'
+            
+            E610 = line.get_E610()
+            str_format += f'<dDMoneTiPag>{E610}</dDMoneTiPag>'
+
+            E611 = '' 
+            if E609 != 'PYG':
+                E611 = line.get_E611()
+                str_format += f'<dTiCamTiPag>{E611}</dTiCamTiPag>'
+            str_format += '</gPaConEIni>'
+        
+        if not str_format:
+            raise UserError("Esteblezca linea de metodos de pago (PY)")
         return str_format
     
     def get_group_E_8(self):

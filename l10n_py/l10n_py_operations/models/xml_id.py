@@ -185,30 +185,14 @@ class PyGroups(models.Model):
     def get_E602(self):
         return 'Contado'
     
-    def get_E606(self):
-        if self.l10n_py_payment_type_id:
-            if self.l10n_py_payment_type_id.code != '1':
-                raise UserError('Por favor establezca metodo de pago efectivo, temporalmente')
-            return self.l10n_py_payment_type_id.code
-        raise UserError('Por favor establezca un metodo de pago')
+    
 
-    def get_E607(self):
-        if self.l10n_py_payment_type_id:
-            return self.l10n_py_payment_type_id.description
-        raise UserError('Por favor establezca un metodo de pago')
+   
 
-    def get_E608(self):
-        return '0'
-        raise UserError('Calcular el total pagado')
     
-    def get_E609(self):
-        return self.currency_id.getCode()
     
-    def get_E610(self):
-        return self.currency_id.getdDescription()
     
-    def get_E611(self):
-        return self.currency_id.get_py_rate()
+    
     
 
     def get_F005(self):
