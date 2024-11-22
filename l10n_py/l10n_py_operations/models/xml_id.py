@@ -150,7 +150,7 @@ class PyGroups(models.Model):
         return self.partner_id.get_D209()
     
     def get_D210(self):
-        return self.partner_id.get_D210()
+        return self.partner_id.get_vat()
     
     def get_D213(self):
         return self.partner_id.get_D213()

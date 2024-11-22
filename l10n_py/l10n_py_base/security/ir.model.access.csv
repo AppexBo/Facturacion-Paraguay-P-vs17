@@ -15,3 +15,4 @@ access_l10n_py_ringing,access_l10n_py_ringing,model_l10n_py_ringing,,1,1,1,1
 access_l10n_py_economic_activity,access_l10n_py_economic_activity,model_l10n_py_economic_activity,,1,1,1,1
 access_l10n_py_endpoint,access_l10n_py_endpoint,model_l10n_py_endpoint,,1,1,1,1
 access_l10n_py_payment_currency,access_l10n_py_payment_currency,model_l10n_py_payment_currency,,1,1,1,1
+access_l10n_py_card_denomination,access_l10n_py_card_denomination,model_l10n_py_card_denomination,,1,1,1,1

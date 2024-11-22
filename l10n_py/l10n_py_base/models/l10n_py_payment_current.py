@@ -25,7 +25,8 @@ class L10nPyPaymentCurrent(models.Model):
     )
     
     def get_default_currency_id(self):
-        return False
+        currency_id = self.env.ref('base.PYG')
+        return currency_id.id
     
     amount = fields.Float(
         string='Monto pagado',
@@ -35,6 +36,7 @@ class L10nPyPaymentCurrent(models.Model):
     
     card = fields.Char(
         string='Numero tarjeta',
+        size=4
     )
     
     
@@ -46,5 +48,11 @@ class L10nPyPaymentCurrent(models.Model):
     invoice_id = fields.Many2one(
         string='Factura',
         comodel_name='account.move',
+    )
+    
+    
+    card_denomination_id = fields.Many2one(
+        string='Denominacion de tarjeta',
+        comodel_name='l10n.py.card.denomination'
     )
     

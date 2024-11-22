@@ -455,3 +455,36 @@ class L10nPyEndpoint(models.Model):
         string='Descripción',
     )
     
+#--------------------------------------------------------------------------------------------------------------------------------
+# Codigos de denominacion de tarjeta 
+# 1= Visa
+# 2= Mastercard
+# 3= American Express
+# 4= Maestro
+# 5= Panal
+# 6= Cabal 99= Otro
+#--------------------------------------------------------------------------------------------------------------------------------
+
+class L10nPyCardDenomination(models.Model):
+    _name = 'l10n.py.card.denomination'
+    _description = 'Denominacíon de la tarjeta'
+    name = fields.Char(
+        string='Nombre',
+        store=True,
+        compute='_compute_name' 
+    )
+    
+    @api.depends('code', 'description')
+    def _compute_name(self):
+        for record in self:
+            record.name = f"({record.code}) {record.description}"
+    
+    description = fields.Char(
+        string='Descripcion',
+    )
+    
+    code = fields.Integer(
+        string='Codigo',
+    )
+    
+

@@ -33,10 +33,9 @@ class AccountMoveSend(models.TransientModel):
         else:
             content = invoice.get_request_pdf()
             if content:
-                pdf_binary_content = base64.b64decode(content)  # Devuelve un objeto de tipo bytes
+                pdf_binary_content = base64.b64decode(content)
 
-                # Guardar el contenido binario en un archivo
-                with open("output.pdf", "wb") as pdf_file:  # Modo binario
+                with open("output.pdf", "wb") as pdf_file:
                     pdf_file.write(pdf_binary_content)
 
                 invoice_data['pdf_attachment_values'] = {

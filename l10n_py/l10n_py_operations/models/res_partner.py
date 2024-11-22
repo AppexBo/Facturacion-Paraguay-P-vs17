@@ -53,9 +53,9 @@ class ResPartner(models.Model):
             return self.l10n_latam_identification_type_id.name
         raise UserError(f'Cliente: {self.name}, no se establecio Tipo de identificación')
 
-    def get_D210(self):
+    def get_vat(self):
         if self.l10n_latam_identification_type_id:
-            return self.l10n_latam_identification_type_id.name
+            return self.vat
         raise UserError(f'Cliente: {self.name}, no se establecio Tipo de identificación')
 
     

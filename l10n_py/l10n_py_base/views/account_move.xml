@@ -19,6 +19,9 @@
                                 <field name="l10n_py_payment_type_id" />
                                 <field name="amount" />
                                 <field name="currency_id" optional="hide" />
+                                <field name="card" optional="hide" />
+                                <field name="card_denomination_id" optional="hide" />
+                                
                             </tree>
                             
                             

@@ -36,6 +36,8 @@
         'data/l10n.py.operation.type.csv',
         'data/l10n.py.transaction.type.csv',
         'data/l10n.py.presence.indicator.csv',
+        'data/l10n.py.card.denomination.csv',
+        
 
         'views/uom_uom.xml',
         'views/account_move.xml',

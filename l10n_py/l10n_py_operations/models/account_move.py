@@ -369,11 +369,19 @@ class AccountMove(models.Model):
             if E609 != 'PYG':
                 E611 = line.get_E611()
                 str_format += f'<dTiCamTiPag>{E611}</dTiCamTiPag>'
+            
+            # E7.1.1
+            if E606 in ['3','4']:
+                str_format += line.get_group_7_1_1()
+
+
             str_format += '</gPaConEIni>'
         
         if not str_format:
             raise UserError("Esteblezca linea de metodos de pago (PY)")
         return str_format
+    
+    
     
     def get_group_E_8(self):
         str_format = ''

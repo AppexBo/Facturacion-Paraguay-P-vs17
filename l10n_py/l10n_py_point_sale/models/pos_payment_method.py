@@ -14,3 +14,11 @@ class PosPaymentMethod(models.Model):
         comodel_name='l10n.py.payment.type',
         help='Tipo de pago paraguay'
     )
+
+    
+    card_denomination_id = fields.Many2one(
+        string='Denominacion de tarjeta',
+        comodel_name='l10n.py.card.denomination'
+    )
+    
+    

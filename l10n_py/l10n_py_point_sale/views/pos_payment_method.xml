@@ -8,19 +8,13 @@
             <field name="priority" eval="17" />
             <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form" />
             <field name="arch" type="xml">
-                
                 <xpath expr="//group/group[3]" position="after">
                     <group name="payment_type_py" >
-                        
                         <field name="l10n_py_payment_type_id" options="{ 'no_open': True, 'no_create': True}" />
-                        
+                        <field name="card_denomination_id" options="{ 'no_open': True, 'no_create': True}" />
                     </group>
                 </xpath>
-                
             </field>
         </record>
-        
-        
-
     </data>
 </odoo>
