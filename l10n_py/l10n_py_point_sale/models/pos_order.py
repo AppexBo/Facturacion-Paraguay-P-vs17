@@ -10,12 +10,32 @@ _logger = logging.getLogger(__name__)
 class PosOrder(models.Model):
     _inherit = ['pos.order']
 
-    def get_py_payment_type(self):
-        if self.payment_ids:
-            pos_payment_id : models.Model = self.payment_ids[0].payment_method_id.l10n_py_payment_type_id
-            if pos_payment_id:
-                return pos_payment_id.id
-        raise UserError('No se encontro un tipo de pago (PY)')
+    @api.model
+    def set_l10n_py_card(self, _order_id):
+        if _order_id:
+            order_id = self.browse(_order_id)
+            if order_id:
+                pos_reference = order_id.pos_reference
+                l10n_py_card_id = self.env['l10n.py.card'].search([('name','=',pos_reference)])
+                
+                if l10n_py_card_id:
+                    _logger.info('se encontro una tarjeta')
+            
+                    return l10n_py_card_id.card
+        return False
+
+    @api.model
+    def _payment_fields(self, order, ui_paymentline):
+        res : dict = super(PosOrder, self)._payment_fields(order,ui_paymentline)
+        payment_method_id = res.get('payment_method_id', False)
+        if payment_method_id:
+            payment_method_id = self.env['pos.payment.method'].browse(payment_method_id)
+            if payment_method_id and payment_method_id.l10n_py_payment_type_id and payment_method_id.l10n_py_payment_type_id.code in ['3','4']:
+                res['card'] = self.set_l10n_py_card(res.get('pos_order_id',False))
+                if payment_method_id.card_denomination_id:
+                    res['card_type'] = payment_method_id.card_denomination_id.description
+                
+        return res
     
     def get_py_payments_type(self):
         if self.payment_ids:
@@ -28,7 +48,9 @@ class PosOrder(models.Model):
                             'l10n_py_payment_type_id': payment.payment_method_id.l10n_py_payment_type_id.id, 
                             'currency_id' : payment.currency_id.id,
                             'amount': payment.amount,
-                            #'currency_rate'
+                            'card' : payment.card,
+                            'card_denomination_id' : payment.payment_method_id.card_denomination_id.id if payment.payment_method_id.card_denomination_id else False,
+                            
                         }
                     )
                 )
@@ -39,9 +61,9 @@ class PosOrder(models.Model):
         vals = super(PosOrder, self)._prepare_invoice_vals()
         if self.config_id.l10n_py_presence_indicator_id:
             vals['l10n_py_presence_indicator_id'] = self.config_id.l10n_py_presence_indicator_id.id
-            vals['l10n_py_payment_type_id'] = self.get_py_payment_type()
-            vals['l10n_py_payments_ids'] = self.get_py_payments_type()
-            
         else:
             raise UserError('No se encontro una configuracion para el tipo de presencia clientes en punto de venta.')
+        vals['l10n_py_payments_ids'] = self.get_py_payments_type()
+
+            
         return vals

@@ -18,6 +18,8 @@
     ],
 	"data":[
         'security/ir.model.access.csv',
+        'security/ir_rule.xml',
+        
 
         'data/l10n.py.uom.csv',
         'data/l10n_latam_document_type.xml',
@@ -45,7 +47,6 @@
         'views/res_currency.xml',
         'views/res_company.xml',
         'views/res_partner.xml',
-        
         
         
 	],

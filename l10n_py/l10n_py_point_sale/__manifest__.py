@@ -16,6 +16,8 @@
 	"data":[
         'views/pos_payment_method.xml',
         'views/pos_config.xml',
+        'views/pos_order.xml',
+        
 	],
     'assets': {
         'point_of_sale._assets_pos': [

@@ -17,6 +17,7 @@ patch(PosStore.prototype, {
         this.default_identification_type_id = loadedData['identification_type_id']
         this.default_receiver_nature = loadedData['receiver_nature']
         this.default_taxpayer_type = loadedData['taxpayer_type']
+        this.pos_payment_ref = loadedData['pos.payment'];
         
     },
 });
