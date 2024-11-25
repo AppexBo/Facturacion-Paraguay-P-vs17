@@ -50,7 +50,7 @@ class AccountMove(models.Model):
     def _post(self, soft=True):
         res : models.Model =  super(AccountMove, self)._post(soft)
         for record in res:
-            if record.move_type == 'out_invoice':
+            if record.move_type == 'out_invoice' and record.journal_id.sudo().l10n_latam_use_documents:
                 record.prepare_py_invoice()
                 if record.l10n_py_response_Code != 0:
                     raise UserError(record.l10n_py_response_ErrorException)

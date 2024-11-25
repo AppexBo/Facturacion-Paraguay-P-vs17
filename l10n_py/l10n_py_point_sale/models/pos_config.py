@@ -55,6 +55,9 @@ class PosConfig(models.Model):
             if not payment_method_id.l10n_py_payment_type_id:
                 raise UserError(f'Todos los metodos de pago para este POS deben tener un Tipo de pago (PY), PAGO: {payment_method_id.name}')
         
+        payment_method_ids = self.payment_method_ids.filtered( lambda line : line.l10n_py_payment_type_id.code in ['3','4'])
+        if len(payment_method_ids)>1:
+            raise UserError(f'Solo puede tener un metodo de pago de tipo tarjeta (PY) en POS, se encontraron: {len(payment_method_ids)}, pagos.')
         if not self.l10n_py_presence_indicator_id:
             raise UserError('Establezca un indicador de presencia')
         

@@ -171,6 +171,8 @@ class PyGroups(models.Model):
     
     def get_E011(self):
         if self.l10n_py_presence_indicator_id:
+            if self.l10n_py_presence_indicator_id.code != 1:
+                raise UserError(f'Tipo de operacion: {self.l10n_py_presence_indicator_id.name}, no disponible')
             return self.l10n_py_presence_indicator_id.code
         raise UserError('Por favor establezca un indicador de presencia')
 
@@ -209,16 +211,22 @@ class PyGroups(models.Model):
         return 0
     
     def get_F009(self):
-        # DESCUENTOS PENDIENTE
-        return 0
+        amount = 0
+        for line in self.invoice_line_ids:
+            if line.display_type == 'product':
+                amount += line.get_EA002()
+        return amount
     
     def get_F026(self):
         #pendiente
         return 0
     
     def get_F033(self):
-        # pendiente descuentos globales por item
-        return 0
+        amount = 0
+        # for line in self.invoice_line_ids:
+        #     if line.display_type == 'product':
+        #         amount += line.get_EA004()
+        return amount
     
     def get_F034(self):
         # pendiente suma de anticipos
@@ -238,12 +246,13 @@ class PyGroups(models.Model):
     
     
     def get_F010(self):
-        # pendiente porcentaje de % total
-        return 0
+        amount = 0
+        
+        return amount
     
     def get_F011(self):
-        # pendiente descuento total
-        return 0
+        amount = self.get_F009()# + self. ...
+        return amount
     
     def get_F012(self):
         # pendiente anticipos
@@ -254,7 +263,8 @@ class PyGroups(models.Model):
         return 0
     
     def get_F014(self):
-        amount = self.get_F008() - self.get_F009() # + self.get_F025()
+        #raise UserError(f"OP: {self.get_F008()} - {self.get_F013()}")
+        amount = self.get_F008() - self.get_F013() # + self.get_F025()
         return amount
     
     def get_F015(self):

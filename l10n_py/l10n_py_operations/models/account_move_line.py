@@ -21,22 +21,32 @@ class AccountMoveLine(models.Model):
         return self.quantity
     
     def get_E721(self):
-        return round(self.price_unit,2)
+        return round(self.price_unit,8)
     
     def get_E727(self):
         amount = self.get_E721() * self.get_E711()
-        return round(amount, 2)
+        return round(amount, 8)
     
     def get_EA002(self):
-        # PENDIENTE DESCUENTOS
+        if self.discount>0:
+            unit_price_disc = (self.price_total) / self.quantity
+            discount = self.price_unit - unit_price_disc
+            return round(discount,8)
         return 0
+    
+    def get_EA003(self):
+        #return self.discount
+        amount = (self.get_EA002()*100)/self.get_E721()
+        return round(amount,8)
+    
+    
     
     def get_EA008(self):
         amount = 0
         if self.move_id.get_D013() in ['1','3','4','5']:
             amount = self.get_E721() - self.get_EA002()# - EA004 - EA006 - EA007
             amount *= self.get_E711()
-        return round(amount, 2)
+        return round(amount, 8)
     
     def get_E731(self):
         return '1'
@@ -100,6 +110,16 @@ class AccountMoveLine(models.Model):
     
     def get_group_E_8_1_1(self):
         str_format = '<gValorRestaItem>'
+        EA002 = self.get_EA002()
+        str_format += f'<dDescItem>{EA002}</dDescItem>'
+
+        EA003 = ''
+        if EA002>0:
+            EA003 = self.get_EA003()
+            str_format += f'<dPorcDesIt>{EA003}</dPorcDesIt>'
+    
+
+        
         EA008 = self.get_EA008()
         str_format += f'<dTotOpeItem>{EA008}</dTotOpeItem>'
         str_format += '</gValorRestaItem>'
