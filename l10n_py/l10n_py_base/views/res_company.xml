@@ -37,6 +37,7 @@
                             <group string="ENTORNO">
                                 <field name="test_environment"/>
                                 <field name="use_auto_invoice"/>
+                                <field name="use_endpoints_test"/>
                             </group>
                             <group string="ENTORNO">
                                 <field name="to_sign"/>

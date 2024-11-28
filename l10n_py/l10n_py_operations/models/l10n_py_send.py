@@ -53,12 +53,14 @@ class L10nPySend(models.Model):
             [
                 ('operation_type','=','send'),
                 ('method','=','POST'),
-                ('name','=','Envío de documentos' if self.company_id.test_environment else 'Envío de documentos (Produccion)' ),
+                ('name','=','Envío de documentos' if self.company_id.use_endpoints_test else 'Envío de documentos (Produccion)' ),
                 
             ]
         ) #"https://api-sandbox.hermesweb.net/api/Document/SendDocumentToAuthority"
         if endpoint:
             url = endpoint.url
+            _logger.info('ENDPOINT')
+            _logger.info(url)
             data = {
                 "mapping": self.company_id.get_py_mapping(),
                 "sign": "true" if self.company_id.to_sign else "false" ,
@@ -164,12 +166,15 @@ class L10nPySend(models.Model):
 
         endpoint =  self.env['l10n.py.endpoint'].search(
             [
-                ('name','=','Descarga PDF' if self.company_id.test_environment else 'Descarga PDF (Produccion)'),
+                ('name','=','Descarga PDF' if self.company_id.use_endpoints_test else 'Descarga PDF (Produccion)'),
                 ('method','=','GET')
             ]
         )
         if endpoint:
             URL = endpoint.url
+            _logger.info('ENDPOINT')
+            _logger.info(URL)
+            
             URL += self.l10n_py_response_CountryDocumentId
             _logger.info(self.l10n_py_response_CountryDocumentId)
 

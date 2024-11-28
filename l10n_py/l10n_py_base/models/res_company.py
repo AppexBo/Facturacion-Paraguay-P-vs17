@@ -23,6 +23,12 @@ class ResCompany(models.Model):
         inverse_name='company_id',
     )
     
+
+    
+    use_endpoints_test = fields.Boolean(
+        string='Usar endpoints de prueba',
+        default=True
+    )
     
 
     
@@ -42,7 +48,7 @@ class ResCompany(models.Model):
     
     
     test_environment = fields.Boolean(
-        string='Entorno de prueba',
+        string='Async',
         default=True
     )
 

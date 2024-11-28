@@ -23,7 +23,7 @@ class ResCompany(models.Model):
         raise UserError(f'La compañia: {self.name}, no tiene establecido en tipo de contribuyente')
     
     def get_name_reazon_social(self):
-        if self.test_environment:
+        if self.use_endpoints_test:
             return 'DE generado en ambiente de prueba - sin valor comercial ni fiscal'
         return self.name
     
