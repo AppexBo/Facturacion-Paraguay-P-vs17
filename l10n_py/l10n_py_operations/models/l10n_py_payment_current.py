@@ -46,6 +46,9 @@ class L10nPyPaymentCurrent(models.Model):
     
     def get_E626(self):
         return 1 # 1 = POS
+    
+    def get_E629(self):
+        return self.card
 
     def get_group_7_1_1(self):
         str_format = '<gPagTarCD>'
@@ -59,6 +62,9 @@ class L10nPyPaymentCurrent(models.Model):
         
         E626 = self.get_E626()
         str_format += f'<iForProPa>{E626}</iForProPa>'
+        
+        E629 = self.get_E629()
+        str_format += f'<dNumTarj>{E629}</iForProPa>'
         
 
         str_format += '</gPagTarCD>'

@@ -52,7 +52,9 @@ class L10nPySend(models.Model):
         endpoint =  self.env['l10n.py.endpoint'].search(
             [
                 ('operation_type','=','send'),
-                ('method','=','POST')
+                ('method','=','POST'),
+                ('name','=','Envío de documentos' if self.company_id.test_environment else 'Envío de documentos (Produccion)' ),
+                
             ]
         ) #"https://api-sandbox.hermesweb.net/api/Document/SendDocumentToAuthority"
         if endpoint:
@@ -162,7 +164,7 @@ class L10nPySend(models.Model):
 
         endpoint =  self.env['l10n.py.endpoint'].search(
             [
-                ('name','=','Descarga PDF'),
+                ('name','=','Descarga PDF' if self.company_id.test_environment else 'Descarga PDF (Produccion)'),
                 ('method','=','GET')
             ]
         )
