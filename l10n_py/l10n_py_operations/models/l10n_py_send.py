@@ -195,3 +195,25 @@ class L10nPySend(models.Model):
                 raise UserError(f"Error al conectar con el servicio: {e}")
                 _logger.info(f"Error al conectar con el servicio: {e}")
                 
+
+    def action_py_request_pdf(self):
+        _name_file = f"{self.name}-{self.company_id.vat}-(PY)"
+        attacht_id = self.env['ir.attachment'].search(
+                [('res_model', '=', self._name), ('res_id', '=', self.id), ('name', '=', _name_file)], limit=1)
+
+        if not attacht_id:        
+            if self.l10n_py_response_CountryDocumentId:
+                pdf = self.get_request_pdf()
+                if pdf:
+                    pdf = base64.b64decode(pdf)
+                    self.env['ir.attachment'].create({
+                            'res_model': self._name,
+                            'res_id': self.id,
+                            'type': 'binary',
+                            'name': _name_file,
+                            'datas': base64.b64encode(pdf),
+                            'mimetype': 'application/pdf',
+                        })
+                    
+            else:
+                raise UserError('No se encontro el CDC para la factura')

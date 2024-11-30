@@ -56,6 +56,8 @@ class PyGroups(models.Model):
     
     def get_invoice_number(self):
         if self.l10n_latam_document_number:
+            if int(self.l10n_latam_document_number) >= 9999999:
+                raise UserError('El numero de documento/factura a llegado al limite')
             return self.l10n_latam_document_number[1:]
         raise UserError('No tiene una secuencia de documento generado')
     

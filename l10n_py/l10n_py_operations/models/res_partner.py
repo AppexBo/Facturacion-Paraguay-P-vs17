@@ -2,6 +2,7 @@
 
 from odoo import api, models, fields
 from odoo.exceptions import UserError
+import html
 
 class ResPartner(models.Model):
     _inherit = ['res.partner']
@@ -37,11 +38,14 @@ class ResPartner(models.Model):
     
     def get_digit_ver(self):
         if self.get_ruc():
-            return self.vat.split('-')[1]
+            dv = self.vat.split('-')
+            if len(dv)>1:
+                return dv[1]
+            raise UserError(f'No se encontro el digito verificador para el cliente: {self.name}')
         return ''
     
     def get_reciver_name(self):
-        return self.name
+        return html.escape(self.name)
     
     def get_D208(self):
         if self.l10n_latam_identification_type_id:
@@ -61,7 +65,7 @@ class ResPartner(models.Model):
     
     def get_D213(self):
         if self.street:
-            return self.street
+            return html.escape(self.street)
         raise UserError(f'Cliente: {self.name}, no se establecio una direccion')
     
     def get_D218(self):

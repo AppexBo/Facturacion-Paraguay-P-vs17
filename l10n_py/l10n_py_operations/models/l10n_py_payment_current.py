@@ -64,7 +64,7 @@ class L10nPyPaymentCurrent(models.Model):
         str_format += f'<iForProPa>{E626}</iForProPa>'
         
         E629 = self.get_E629()
-        str_format += f'<dNumTarj>{E629}</iForProPa>'
+        str_format += f'<dNumTarj>{E629}</dNumTarj>'
         
 
         str_format += '</gPagTarCD>'

@@ -2,7 +2,7 @@
 
 from odoo import api, models, fields
 from odoo.exceptions import UserError
-
+import html
 class ProductProduct(models.Model):
     
     _inherit = ['product.product']
@@ -13,4 +13,4 @@ class ProductProduct(models.Model):
         raise UserError(f"Producto: {self.name}, no tiene un codigo/referencia interna")
     
     def getDescription(self):
-        return self.name
+        return html.escape(self.name)

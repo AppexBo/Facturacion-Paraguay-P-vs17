@@ -2,6 +2,7 @@
 
 from odoo import api, models, fields
 from odoo.exceptions import UserError
+import html
 
 class ResCompany(models.Model):
     
@@ -25,14 +26,14 @@ class ResCompany(models.Model):
     def get_name_reazon_social(self):
         if self.use_endpoints_test:
             return 'DE generado en ambiente de prueba - sin valor comercial ni fiscal'
-        return self.name
+        return html.escape(self.name)
     
     def get_number_house(self):
         return self.number_house if self.number_house else '0'
     
     def get_address(self):
         if self.street:
-            return self.street
+            return html.escape(self.street)
         raise UserError(f'La compañia: {self.name}, no tiene la direccion establecida en el RUC')
     
     def get_department_info(self):

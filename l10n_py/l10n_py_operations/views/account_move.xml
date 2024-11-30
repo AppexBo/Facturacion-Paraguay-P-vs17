@@ -12,25 +12,31 @@
                 
                 <xpath expr="//button[@name='action_reverse']" position="after"> 
                     
-                    <button name="action_resend_invoice"
+                    <!-- <button name="action_resend_invoice"
                             string="Reenviar documento"
                             type="object"
                             icon="fa-rotate-right"    
                             confirm="Solo debe ser reenviado cuando la factura no se encuentre validado por la SET, ¿Reenviar este documento?"
                             invisible="state != 'posted'"
+                    /> -->
+
+                    <button name="action_py_request_pdf"
+                            string="Generar factura (PY)"
+                            type="object"
+                            invisible="state != 'posted' or move_type != 'out_invoice'"
                     />
 
                     <button name="action_py_request_document"
                             string="Verificar factura (PY)"
                             type="object"
-                            invisible="state != 'posted'"
+                            invisible="state != 'posted' or move_type != 'out_invoice'"
                     />
                     
                 </xpath>
 
                 
                 <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='currency_id']" position="after">
-                    <field name="edi_py_state"/>
+                    <field name="edi_py_state" invisible="move_type != 'out_invoice'"/>
                 </xpath>
                 
             </field>
