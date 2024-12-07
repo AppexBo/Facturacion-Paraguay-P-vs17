@@ -179,7 +179,7 @@ class L10nPySend(models.Model):
             _logger.info(self.l10n_py_response_CountryDocumentId)
 
             try:
-                response = requests.get(URL, headers=header)
+                response = requests.get(URL, headers=header, timeout=30)
 
                 # Verificar si la solicitud fue exitosa
                 if response.status_code == 200:
@@ -191,6 +191,14 @@ class L10nPySend(models.Model):
                 else:
                     raise UserError(f"Error en la autenticación o consulta: {response.status_code}, {response.text}")
                     _logger.info(f"Error en la autenticación o consulta: {response.status_code}, {response.text}")
+            except requests.exceptions.Timeout:
+                _logger.error("El servicio PDF demoró demasiado en responder.")
+                if self.l10n_py_response_extra_info:
+                    self.write({'l10n_py_response_extra_info' : self.l10n_py_response_extra_info + '|El servicio PDF demoró demasiado en responder.'})
+                else:
+                    self.write({'l10n_py_response_extra_info' : '|El servicio PDF demoró demasiado en responder.'})
+
+                return False
             except requests.exceptions.RequestException as e:
                 raise UserError(f"Error al conectar con el servicio: {e}")
                 _logger.info(f"Error al conectar con el servicio: {e}")

@@ -47,4 +47,6 @@ class AccountMoveSend(models.TransientModel):
                     'res_field': 'invoice_pdf_report_file', # Binary field
                 }
             else:
-                return
+                
+                super(AccountMoveSend, self)._prepare_invoice_pdf_report(invoice, invoice_data)
+                
