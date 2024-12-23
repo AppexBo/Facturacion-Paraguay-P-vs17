@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        
+        
+        <record id="view_l10n_py_base_account_move_tree" model="ir.ui.view">
+            <field name="name">view_l10n_py_base_account_move_tree</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_invoice_tree" />
+            <field name="arch" type="xml">
+                
+                <xpath expr="//field[@name='name']" position="before">
+
+                    <field name="company_vat" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')" />
+                    <field name="company_id" string='COMPAÑIA' column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')" />
+                    
+                    
+                    <field name="identity_document_type_id" optional='hide' column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')" />
+                    <field name="identification_number" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    <field name="partner_id" string='Nombre/Razón Social' column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+
+
+
+                    <field name="l10n_latam_document_type_id" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    <field name="currency_id" string='Moneda' column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')" />
+                    
+                    
+                    <field name="establishment_code" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    <field name="expedicion_point_code" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    
+                    <field name="invoice_number" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    
+                    <field name="ringing_code" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    <field name="l10n_latam_document_number" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    <field name="edi_py_state" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    <field name="operation_condition" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    
+                    <field name="country_partner_id" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    <field name="ringing_date_end" column_invisible="context.get('default_move_type') not in ('in_invoice', 'out_invoice')"/>
+                    
+                    
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
