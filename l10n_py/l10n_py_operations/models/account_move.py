@@ -550,3 +550,13 @@ class AccountMove(models.Model):
             else:
                 super(AccountMove, self)._compute_name()
                 break
+
+
+    def button_cancel(self):
+        super(AccountMove, self).button_cancel()
+        self.write({'edi_py_state' : 'canceled'})
+
+
+    def button_draft(self):
+        super(AccountMove, self).button_draft()
+        self.write({'edi_py_state' : 'pending'})

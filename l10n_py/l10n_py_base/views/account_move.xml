@@ -33,8 +33,8 @@
                     </div>
 
 
-                    <field name="establishment_id" required="move_type == 'out_invoice' and l10n_latam_use_documents" />
-                    <field name="expedition_point_id" required="move_type == 'out_invoice' and l10n_latam_use_documents"/>
+                    <field name="establishment_id" required="move_type == 'out_invoice' and l10n_latam_use_documents" invisible="move_type != 'out_invoice'" />
+                    <field name="expedition_point_id" required="move_type == 'out_invoice' and l10n_latam_use_documents" invisible="move_type != 'out_invoice'"/>
                     
                     
                 </xpath>
