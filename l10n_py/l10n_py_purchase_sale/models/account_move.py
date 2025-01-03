@@ -99,23 +99,48 @@ class AccountMove(models.Model):
         copy=False
     )
     
-    def get_F019(self):
-        amount = super(AccountMove, self).get_F019()
-        self.write({'total_base_taxed_10_percent' : amount})
-        return amount
-    
-    
     total_base_iva_10_percent = fields.Float(
         string='Base imponible total IVA al 10%',
         copy=False
     )
     
-    def get_F016(self):
-        amount = super(AccountMove, self).get_F016()
-        self.write({'total_base_iva_10_percent' : amount})
-        return amount
+    def get_total_base_taxed_10_percent(self):
+        amount_grav = 0
+        amount_iva = 0
 
-    # PURCHASE BOOK
+        for line in self.invoice_line_ids:
+                if line.display_type == 'product':
+                    if line.taxes_percentage_type == '10':
+                        amount_grav += line.get_E735()
+                        amount_iva = line.get_E736()
+        
+        self.write({'total_base_taxed_10_percent' : amount_grav})
+        self.write({'total_base_iva_10_percent' : amount_iva})
+        
+
+    total_base_taxed_5_percent = fields.Float(
+        string='Base total gravada al 5%',
+        copy=False
+    )
+
+    total_base_iva_5_percent = fields.Float(
+        string='Base imponible total IVA al 5%',
+        copy=False
+    )
+
+
+    def get_total_base_taxed_5_percent(self):
+        amount_grav = 0
+        amount_iva = 0
+
+        for line in self.invoice_line_ids:
+                if line.display_type == 'product':
+                    if line.taxes_percentage_type == '5':
+                        amount_grav += line.get_E735()
+                        amount_iva = line.get_E736()
+        
+        self.write({'total_base_taxed_5_percent' : amount_grav})
+        self.write({'total_base_iva_5_percent' : amount_iva})
 
     l10n_py_purchase_document_type_dic = {
         'electronic' : 'ELECTRONICO',
@@ -135,6 +160,6 @@ class AccountMove(models.Model):
         for record in self:
             if record.move_type=='in_invoice':
                 record.get_F014()
-                record.get_F019()
-                record.get_F016()
+                record.get_total_base_taxed_10_percent()
+                record.get_total_base_taxed_5_percent()
         return res
